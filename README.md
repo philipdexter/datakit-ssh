@@ -29,14 +29,8 @@ Multiple servers use different local checkouts of a git repository.
 Use the original datakit client container
 
 ```bash
-$ docker run -it --privileged -v </path/to/git/repo>:/peerN --net datakit-net docker/datakit:client
+$ docker run -it --privileged --net datakit-net docker/datakit:client
 ```
-
-Note that the git repo mounted in the client would be used to perform
-local modifications. This should be the same path used to set up the
-server.
-
-Multiple clients use different local checkouts of a git repository.
 
 Remember to mount the necessary server when using multiple servers and
 clients (**TODO**: this should be automated and not hardcoded):
