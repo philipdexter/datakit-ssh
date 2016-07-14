@@ -19,18 +19,24 @@ $ ssh-keygen
 # Server
 
 ```bash
-$ cd wherever
-$ docker run --net datakit-net --name datakit-ssh -v $(realpath .):/data -P -v $(realpath ~/.datakit-ssh/id_rsa.pub):/root/.ssh/authorized_keys -v $(realpath ~/.datakit-ssh/id_rsa):/root/.ssh/.id_rsa -it datakit-ssh
+$ docker run --net datakit-net --name datakit-ssh -v </path/to/git/repo>:/data -P -v $(realpath ~/.datakit-ssh/id_rsa.pub):/root/.ssh/authorized_keys -v $(realpath ~/.datakit-ssh/id_rsa):/root/.ssh/.id_rsa -it datakit-ssh
 ```
+
+Multiple servers use different local checkouts of a git repository.
 
 # Client
 
 Use the original datakit client container
 
 ```bash
-$ cd wherever
-$ docker run -it --privileged -v $(realpath .):/peerN --net datakit-net docker/datakit:client
+$ docker run -it --privileged -v </path/to/git/repo>:/peerN --net datakit-net docker/datakit:client
 ```
+
+Note that the git repo mounted in the client would be used to perform
+local modifications. This should be the same path used to set up the
+server.
+
+Multiple clients use different local checkouts of a git repository.
 
 Remember to mount the necessary server when using multiple servers and
 clients (**TODO**: this should be automated and not hardcoded):
